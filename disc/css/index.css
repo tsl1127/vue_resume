@@ -1,0 +1,150 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+*{
+    box-sizing: border-box;
+}
+*::after{
+    box-sizing: border-box;
+}
+*::before{
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;  /*继承外面的颜色*/
+}
+
+ul,ol{
+    list-style: none;
+}
+body{
+    font-size: 18px;
+}
+
+
+
+@media (min-width:500px){  /*限定只在宽度500以上的屏幕使用，不在手机端用*/
+    .page{
+    height: 100vh;
+    overflow: hidden;  /*page里面的div可以设置为滚动*/
+    display: flex;
+}
+}        
+.page > aside{
+    width:100px;
+    /* border:solid red 1px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    flex-shrink: 0;  /*不缩小*/
+    border-right: 1px solid #ddd;
+    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.2);
+}
+
+.page > aside >.upper{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.page > aside >.upper >.actions >li{
+    margin: 10px;
+    border: solid red 1px;
+}
+
+.page > aside > .down{
+    border:1px solid red ;
+    padding:10px 0px;
+}
+
+.page > main{
+    /* border: solid green 1px; */
+    flex-grow: 1;  /*会让上面的border向右占满*/
+    overflow: auto;/*可以滚动*/
+}
+
+button{
+    font: inherit;
+}
+
+.button{
+    padding: 3px 10px;
+}
+
+.resume{
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.resume > section{
+    margin:50px 0;
+}
+
+.resume > section >h1{
+    text-align: center;
+    margin: 20px;
+}
+
+.resume > section >h2{
+    text-align: center;
+    margin: 20px;
+}
+
+/* .resume > section >p{
+    text-align: center;
+} */
+
+.resume .profile {
+    text-align: center;
+}
+
+.resume .skills >ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;           
+}
+.resume .skills>ul>li{
+    border: solid #ddd 1px ;
+    width:48%;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.resume .projects{
+
+}
+
+.resume .projects header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.resume .projects header .name {
+    margin-right: 1em;
+}
+
+.resume .projects header .start{
+    display: flex;
+    border: solid red 1px;
+    /* align-content: center; */
+} 
+.resume .projects header .end{
+    border: 1px solid red;
+}
+
+.resume .projects > ol{
+    
+}
+.resume .projects >ol>li{
+    margin:30px 0;
+    border:1px solid red;
+    padding: 10px;
+}
+

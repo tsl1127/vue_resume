@@ -3,17 +3,27 @@ let app = new Vue({
     data: {
         editingName:false,
         loginVisible:false,
-        signUpVisible:false,
+        signUpVisible:true,
         resume :{
             name:'姓名',
             gender:'男',
             birthday:'1986年12月',
             jobTitle:'前端开发工程师',
             email:'taosiliang1127tsl@163.com',
-            phone:'13207134080'
+            phone:'132xxxx4080'
+        },
+        signUp:{
+            phone:'',
+            vcode:'',
+            password:''
         }
     },
     methods:{
+        onSendVcode(){
+            AV.Cloud.requestSmsCode(this.signUp.phone).then(function (success) {
+            }, function (error) {
+            });
+        },
         onEdit(key,value){
             // this.resume.name = e.target.innerText
             // console.log(value)

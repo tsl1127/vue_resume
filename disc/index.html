@@ -157,21 +157,27 @@
                     </div>
                     
             </form>            
+            <!--  -->
         </div>
         <div v-show="signUpVisible" class="signUp">
                 <form class="form">
                     <h2>注册</h2>
                     <button @click="loginVisible = false">关闭</button>
                     <div class="row">
-                        <label>邮箱</label>
-                        <input type="text">
+                        <label>手机</label>
+                        <input type="password" v-model="signUp.phone">    <!-- 双向绑定 -->
+                        <button @click="onSendVcode">发送验证码</button>
                     </div>
+                    <div class="row">
+                            <label>手机验证码</label>
+                            <input type="text">
+                        </div>
                     <div class="row">
                         <label>密码</label>
                         <input type="text">
                     </div>
                     <div class="actions">
-                        <button>提交</button>
+                        <button type="submit">提交</button>
                         <a href="#" @click="signUpVisible = false;loginVisible = true" >登录</a>
                     </div>
 

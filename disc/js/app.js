@@ -3,7 +3,7 @@ let app = new Vue({
     data: {
         editingName:false,
         loginVisible:false,
-        signUpVisible:true,
+        signUpVisible:false,
         resume :{
             name:'姓名',
             gender:'男',
@@ -13,14 +13,42 @@ let app = new Vue({
             phone:'132xxxx4080'
         },
         signUp:{
-            phone:'',
-            vcode:'',
+            email:'',
+            password:''
+        },
+        login:{
+            email:'',
             password:''
         }
     },
     methods:{
-        onSendVcode(){
-            AV.Cloud.requestSmsCode(this.signUp.phone).then(function (success) {
+        onLogin(){
+            // console.log(this.login)           
+            AV.User.logIn(this.login.email, this.login.password).then(function (user) {
+                console.log(user);
+            }, function (error) {
+                if(error.code===211){
+                    alert('邮箱不存在')
+                }else if(error.code===210){
+                    alert('邮箱和密码不匹配')
+                }
+                // console.log(error)
+                // console.log(error.code)
+            });
+        },
+        onSignUp(){
+            // e.preventDefault()  //阻止表单自动跳转  或者直接在vue里写
+            // console.log(this.signUp)
+              // 新建 AVUser 对象实例
+            const user = new AV.User();
+            // 设置用户名
+            user.setUsername(this.signUp.email)
+            // 设置密码
+            user.setPassword(this.signUp.password)
+            // 设置邮箱
+            user.setEmail(this.signUp.email)
+            user.signUp().then(function (user) {
+                // console.log(user);
             }, function (error) {
             });
         },
@@ -40,30 +68,16 @@ let app = new Vue({
             }else{
                 this.saveResume()
             }
-
-
-
-
-            // // console.log(this.resume)
-            //  // 声明类型
-            // let User = AV.Object.extend('User')
-            // // 新建对象
-            // let user = new User()
-            // // 设置名称
-            // user.set('resume', 'this.resume')
-            // // 设置优先级
-            // // user.set('priority', 1)
-            // user.save().then(function (todo) {
-            //     console.log('objectId is ' + todo.id)
-            // }, function (error) {
-            //     console.error(error)
-            // })
         },
-        // onCloseLogin(){
-        //     this.loginVisible = false
-        // },
         saveResume(){
-
+            // 第一个参数是 className，第二个参数是 objectId
+            // console.log(AV.User.current())
+            let {id} = AV.User.current()
+            let user = AV.Object.createWithoutData('User', id)
+            // 修改属性
+            user.set('resume', this.resume)
+            // 保存到云端
+            user.save();
         }
     }
 })

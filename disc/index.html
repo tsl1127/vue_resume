@@ -140,19 +140,19 @@
             </div>
         </main>
         <div v-show="loginVisible" class="login">
-            <form class="form">
+            <form class="form" @submit.prevent="onLogin">
                     <h2>登录</h2>
                     <button @click="loginVisible = false">关闭</button>
                     <div class="row">
                         <label >邮箱</label>
-                        <input type="text">
+                        <input type="text" v-model="login.email">
                     </div>
                     <div class="row">
                         <label>密码</label>
-                        <input type="text">
+                        <input type="text" v-model="login.password">
                     </div>
                     <div class="actions">
-                        <button>提交</button>
+                        <button type="submit">提交</button>
                         <a href="#" @click="signUpVisible = true;loginVisible = false">注册</a>
                     </div>
                     
@@ -160,22 +160,17 @@
             <!--  -->
         </div>
         <div v-show="signUpVisible" class="signUp">
-                <form class="form">
+                <form class="form" @submit.prevent="onSignUp">  <!-- 阻止默认跳转  文档里叫做事件修饰符-->
                     <h2>注册</h2>
                     <button @click="loginVisible = false">关闭</button>
                     <div class="row">
-                        <label>手机</label>
-                        <input type="password" v-model="signUp.phone">    <!-- 双向绑定 -->
-                        <button @click="onSendVcode">发送验证码</button>
+                        <label>邮箱</label>
+                        <input type="text" v-model="signUp.email">    
                     </div>
                     <div class="row">
-                            <label>手机验证码</label>
-                            <input type="text">
+                            <label>密码</label>
+                            <input type="password" v-model="signUp.password">
                         </div>
-                    <div class="row">
-                        <label>密码</label>
-                        <input type="text">
-                    </div>
                     <div class="actions">
                         <button type="submit">提交</button>
                         <a href="#" @click="signUpVisible = false;loginVisible = true" >登录</a>

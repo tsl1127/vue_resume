@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <title>简历编辑器</title>
  <link rel="stylesheet" href="./css/index.css">
- <style>
-        /* .resume input{
-            border:none;
-            font:inherit;
-            text-align: center;
-        } */
-        </style>
+ <link rel="stylesheet" href="./css/editable-span.css">
+ <link rel="stylesheet" href="./css/login.css">
+ <link rel="stylesheet" href="./css/singUp.css">
 </head>
 <body>
     <div class="page" id="app">
         <aside>
             <div class="upper">
                 <ul class="actions">
-                    <li><button class="button">保存</button> </li>
+                    <li><button class="button" @click="onClickSave">保存</button> </li>
                     <li><button class="button">分享</button> </li>
                     <li><button class="button">打印</button> </li>
                     <li><button class="button">换肤</button> </li>
@@ -143,6 +139,44 @@
                 </section>
             </div>
         </main>
+        <div v-show="loginVisible" class="login">
+            <form class="form">
+                    <h2>登录</h2>
+                    <button @click="loginVisible = false">关闭</button>
+                    <div class="row">
+                        <label >邮箱</label>
+                        <input type="text">
+                    </div>
+                    <div class="row">
+                        <label>密码</label>
+                        <input type="text">
+                    </div>
+                    <div class="actions">
+                        <button>提交</button>
+                        <a href="#" @click="signUpVisible = true;loginVisible = false">注册</a>
+                    </div>
+                    
+            </form>            
+        </div>
+        <div v-show="signUpVisible" class="signUp">
+                <form class="form">
+                    <h2>注册</h2>
+                    <button @click="loginVisible = false">关闭</button>
+                    <div class="row">
+                        <label>邮箱</label>
+                        <input type="text">
+                    </div>
+                    <div class="row">
+                        <label>密码</label>
+                        <input type="text">
+                    </div>
+                    <div class="actions">
+                        <button>提交</button>
+                        <a href="#" @click="signUpVisible = false;loginVisible = true" >登录</a>
+                    </div>
+
+                </form>
+        </div>
     </div>
 
 
@@ -160,71 +194,8 @@
    </script> 
    <script src="./js/av.js"></script>
    <script src="./vendors/vue.min.js"></script>
-   <style>
-       .editableSpan{
-            position: relative;
-       }
-       .editableSpan button{
-            display: none;
-            position: absolute;
-            left: 100%;
-            top:0;
-            z-index: 1;
-       }
-       .editableSpan:hover button{
-            display: inline-block;
-       }
-   </style>
-   <script>
-    Vue.component('editable-span',{
-        props:['value'],
-        template:`
-        <span class="editableSpan">
-        <span v-show="!editing">{{value}}</span>
-        <input type="text" v-show="editing" v-bind:value="value" @input = "triggerEdit">
-        <button v-on:click="editing=!editing">edit</button>
-        </span>
-        `,
-        data(){
-            return {
-                editing:false
-            }
-        },
-        methods:{
-            triggerEdit(e){
-                // console.log(e.target.value)
-                this.$emit('edit',e.target.value)
-            }
-        }
-
-        
-    })
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            editingName:false,
-            resume :{
-                name:'姓名',
-                gender:'男',
-                birthday:'1986年12月',
-                jobTitle:'前端开发工程师',
-                email:'taosiliang1127tsl@163.com',
-                phone:'13207134080'
-            }
-        },
-        methods:{
-            onEdit(key,value){
-                // this.resume.name = e.target.innerText
-                // console.log(value)
-                // console.log(this)
-                // this.resume.name=value
-                // console.log(key,value)
-                this.resume[key]=value
-            }
-        }
-    })
-   </script>
+   <script src="./js/editable-span.js"></script>
+   <script src="./js/app.js"></script>
 
 </body>
 </html>

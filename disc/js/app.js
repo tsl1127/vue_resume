@@ -36,6 +36,13 @@ let app = new Vue({
                 // console.log(error.code)
             });
         },
+        onLogout(){
+            AV.User.logOut();
+            alert('登出成功')
+            // 现在的 currentUser 是 null 了
+            // var currentUser = AV.User.current();
+            window.location.reload()  //登出之后刷新页面
+        },
         onSignUp(){
             // e.preventDefault()  //阻止表单自动跳转  或者直接在vue里写
             // console.log(this.signUp)

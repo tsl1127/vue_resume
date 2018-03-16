@@ -148,3 +148,6 @@ button{
     padding: 10px;
 }
 
+div[v-cloak]{
+    display: none;
+}

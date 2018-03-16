@@ -139,10 +139,10 @@
                 </section>
             </div>
         </main>
-        <div v-show="loginVisible" class="login">
+        <div v-show="loginVisible" class="login" v-cloak>
             <form class="form" @submit.prevent="onLogin">
                     <h2>登录</h2>
-                    <button @click="loginVisible = false">关闭</button>
+                    <button type="button" @click="loginVisible = false">关闭</button>
                     <div class="row">
                         <label >邮箱</label>
                         <input type="text" v-model="login.email">
@@ -159,10 +159,10 @@
             </form>            
             <!--  -->
         </div>
-        <div v-show="signUpVisible" class="signUp">
+        <div v-show="signUpVisible" class="signUp" v-cloak>
                 <form class="form" @submit.prevent="onSignUp">  <!-- 阻止默认跳转  文档里叫做事件修饰符-->
                     <h2>注册</h2>
-                    <button @click="loginVisible = false">关闭</button>
+                    <button type="button" @click="loginVisible = false">关闭</button>
                     <div class="row">
                         <label>邮箱</label>
                         <input type="text" v-model="signUp.email">    

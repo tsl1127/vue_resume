@@ -7,6 +7,7 @@
  <link rel="stylesheet" href="./css/editable-span.css">
  <link rel="stylesheet" href="./css/login.css">
  <link rel="stylesheet" href="./css/singUp.css">
+ <link rel="stylesheet" href="./css/share.css">
 </head>
 <body>
     <div class="page" id="app">
@@ -14,7 +15,7 @@
             <div class="upper">
                 <ul class="actions">
                     <li><button class="button" @click="onClickSave">保存</button> </li>
-                    <li><button class="button">分享</button> </li>
+                    <li><button class="button" @click="shareVisible = true">分享</button> </li>
                     <li><button class="button">打印</button> </li>
                     <li><button class="button">换肤</button> </li>
                 </ul>
@@ -73,53 +74,33 @@
                 <section class="projects">
                     <h2>项目经历</h2>
                     <ol>
-                        <li>
+                        <li v-for="project,index in resume.projects">
                             <header>
                                 <div class="start">
-                                    <h3 class="name">我的简历</h3>
-                                    <span class="link">http...</span>
+                                    <h3 class="name">
+                                    <editable-span :value="project.name" @edit="onEdit(`projects[${index}].name`,$event)"></editable-span>
+                                    </h3>
+                                    <span class="link">
+                                        <editable-span :value="project.link" @edit="onEdit(`projects[${index}].link`,$event)"></editable-span>
+                                    </span>
                                 </div>
                                 <div class="end">
-                                    <span class="keywords">CSS3、jQuery、响应式</span>
+                                    <span class="keywords">
+                                            <editable-span :value="project.keywords" @edit="onEdit(`projects[${index}].keywords`,$event)"></editable-span>
+                                    </span>
                                 </div>
                             </header>
-                            <p class="description">如何做项目的</p>
+                            <p class="description">
+                                    <editable-span :value="project.description" @edit="onEdit(`projects[${index}].description`,$event)"></editable-span>
+                            </p>
+                            <span class="remove" v-if="index>=3" @click="removeProject(index)">
+                                删除
+                            </span>
                         </li>
                         <li>
-                            <header>
-                                <div class="start">
-                                    <h3 class="name">我的简历</h3>
-                                    <span class="link">http...</span>
-                                </div>
-                                <div class="end">
-                                    <span class="keywords">CSS3、jQuery、响应式</span>
-                                </div>
-                            </header>
-                            <p class="description">如何做项目的</p>
-                        </li>
-                        <li>
-                            <header>
-                                <div class="start">
-                                    <h3 class="name">我的简历</h3>
-                                    <span class="link">http...</span>
-                                </div>
-                                <div class="end">
-                                    <span class="keywords">CSS3、jQuery、响应式</span>
-                                </div>
-                            </header>
-                            <p class="description">如何做项目的</p>
-                        </li>
-                        <li>
-                            <header>
-                                <div class="start">
-                                    <h3 class="name">我的简历</h3>
-                                    <span class="link">http...</span>
-                                </div>
-                                <div class="end">
-                                    <span class="keywords">CSS3、jQuery、响应式</span>
-                                </div>
-                            </header>
-                            <p class="description">如何做项目的</p>
+                            <span @click="addProject">
+                                添加
+                            </span>
                         </li>
                     </ol>
 
@@ -164,6 +145,12 @@
                     </div>
 
                 </form>
+        </div>
+        <div v-show="shareVisible" class="share" v-cloak>
+            <h2>请将下面链接分享给面试官</h2>
+            <div>
+                <textarea readonly>{{shareLink}}</textarea>           
+            </div>
         </div>
     </div>
 

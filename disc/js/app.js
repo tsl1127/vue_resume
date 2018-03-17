@@ -4,6 +4,7 @@ let app = new Vue({
         editingName:false,
         loginVisible:false,
         signUpVisible:false,
+        shareVisible:false,
         currentUser:{
             objectId:'',
             email:'',
@@ -32,6 +33,12 @@ let app = new Vue({
                 name:'请填写技能名称',
                 description:'请填写技能描述'
             }
+            ],
+            projects:[
+                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'}
             ]
         },
         signUp:{
@@ -41,7 +48,8 @@ let app = new Vue({
         login:{
             email:'',
             password:''
-        }
+        },
+        shareLink:''
     },
     methods:{
         onLogin(){   //登录
@@ -167,6 +175,12 @@ let app = new Vue({
         },
         removeSkill(index){
             this.resume.skills.splice(index,1)  //从数组的第index个开始删除，只删除一个
+        },
+        addProject(){
+            this.resume.projects.push({name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'})
+        },
+        removeProject(index){
+            this.resume.projects.splice(index,1)
         }
     }
 })
@@ -177,6 +191,7 @@ let currentUser = AV.User.current()
     // console.log(currentUser)
 if(currentUser){
     app.currentUser = currentUser.toJSON()
+    app.shareLink=location.origin + location.pathname+'?user_id='+app.currentUser.objectId
     app.getResume()
 }
 

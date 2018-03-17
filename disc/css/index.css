@@ -122,6 +122,16 @@ button{
     right: 5px;
 }
 
+.resume .projects>ol>li{
+    position: relative;
+}
+
+.resume .projects>ol>li .remove{
+    position: absolute;
+    bottom:5px;
+    right: 5px;
+}
+
 .resume .projects{
 
 }

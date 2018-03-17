@@ -20,7 +20,7 @@
                 </ul>
             </div>
             <div class="down">
-                    <button class="button" @click="onLogout">登出</button>
+                    <button class="button" @click="onLogout" v-show="hasLogin()">登出</button>
             </div>           
         </aside>
         <main>
@@ -29,6 +29,7 @@
                     <!-- <h1 contenteditable="true">
                         <input type="text" v-model="resume.name">
                     </h1> -->
+                    <!-- {{currentUser}} -->
                     <h1>
                         <editable-span :value="resume.name" @edit="onEdit('name',$event)"></editable-span>
                         <!-- {{resume.name}}                            -->
@@ -149,7 +150,7 @@
                     </div>
                     <div class="row">
                         <label>密码</label>
-                        <input type="text" v-model="login.password">
+                        <input type="password" v-model="login.password">
                     </div>
                     <div class="actions">
                         <button type="submit">提交</button>

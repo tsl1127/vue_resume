@@ -4,6 +4,10 @@ let app = new Vue({
         editingName:false,
         loginVisible:false,
         signUpVisible:false,
+        currentUser:{
+            objectId:'',
+            email:'',
+        },
         resume :{
             name:'姓名',
             gender:'男',
@@ -22,11 +26,17 @@ let app = new Vue({
         }
     },
     methods:{
-        onLogin(){
+        onLogin(){   //登录
             // console.log(this.login)           
-            AV.User.logIn(this.login.email, this.login.password).then(function (user) {
-                console.log(user);
-            }, function (error) {
+            AV.User.logIn(this.login.email, this.login.password).then( (user)=> {
+                // console.log(user);
+                user = user.toJSON()
+                this.currentUser = {     //登录进来之后，对currentUser赋值
+                    objectId:user.objectId,
+                    email:user.email,
+                }
+                this.loginVisible =false
+            },  (error)=> {
                 if(error.code===211){
                     alert('邮箱不存在')
                 }else if(error.code===210){
@@ -36,6 +46,9 @@ let app = new Vue({
                 // console.log(error.code)
             });
         },
+        hasLogin(){
+            return !!this.currentUser.objectId
+        },
         onLogout(){
             AV.User.logOut();
             alert('登出成功')
@@ -43,7 +56,7 @@ let app = new Vue({
             // var currentUser = AV.User.current();
             window.location.reload()  //登出之后刷新页面
         },
-        onSignUp(){
+        onSignUp(){     //注册
             // e.preventDefault()  //阻止表单自动跳转  或者直接在vue里写
             // console.log(this.signUp)
               // 新建 AVUser 对象实例
@@ -54,9 +67,15 @@ let app = new Vue({
             user.setPassword(this.signUp.password)
             // 设置邮箱
             user.setEmail(this.signUp.email)
-            user.signUp().then(function (user) {
+            user.signUp().then( (user)=>{
                 // console.log(user);
-            }, function (error) {
+                alert('注册成功')
+                user = user.toJSON()
+                this.currentUser.objectId=user.objectId
+                this.currentUser.email=user.email
+                this.signUpVisible =false
+            }, (error)=> {
+                alert(error.rawMessage)
             });
         },
         onEdit(key,value){
@@ -79,12 +98,37 @@ let app = new Vue({
         saveResume(){
             // 第一个参数是 className，第二个参数是 objectId
             // console.log(AV.User.current())
-            let {id} = AV.User.current()
-            let user = AV.Object.createWithoutData('User', id)
+            let {objectId} = AV.User.current().toJSON()
+            let user = AV.Object.createWithoutData('User', objectId)
             // 修改属性
             user.set('resume', this.resume)
             // 保存到云端
-            user.save();
+            user.save().then(()=>{
+                alert('保存成功')
+            },()=>{
+                alert('保存失败')
+            })
+        },
+        getResume(){   //获取对象
+            let query = new AV.Query('User')
+            query.get(this.currentUser.objectId).then((user)=>{
+                // console.log(user)
+                let resume = user.toJSON().resume
+                // console.log(resume)
+                this.resume = resume
+            },(error)=>{
+                
+            })
         }
     }
 })
+
+
+
+let currentUser = AV.User.current()
+    // console.log(currentUser)
+if(currentUser){
+    app.currentUser = currentUser.toJSON()
+    app.getResume()
+}
+

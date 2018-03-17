@@ -25,6 +25,7 @@
         </aside>
         <main>
             <div class="resume">
+                <!-- {{resume}} -->
                 <section class="profile">                  
                     <!-- <h1 contenteditable="true">
                         <input type="text" v-model="resume.name">
@@ -50,37 +51,22 @@
                 <section class="skills">
                     <h2>技能</h2>
                     <ul>
-                        <li>
-                            <span class="name">
-                                静态页面制作
-                            </span>
-                            <div class="description">
-                                完美实现设计稿
-                            </div>
-                        </li>
-                        <li>
-                            <span class="name">
-                                    静态页面制作
-                                </span>
-                            <div class="description">
-                                完美实现设计稿
-                            </div>
-                        </li>
-                        <li>
-                            <span class="name">
-                                        静态页面制作
+                        <li v-for="skill,index in resume.skills">
+                            <!-- {{index}} -->
+                                <editable-span class="name" :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)">
+                                </editable-span>
+                                    <div class="description">
+                                        <editable-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)"></editable-span>                                       
+                                    </div>
+                                    <span class="remove" v-if="index>=4" @click="removeSkill(index)">
+                                            删除
                                     </span>
-                            <div class="description">
-                                完美实现设计稿
-                            </div>
                         </li>
                         <li>
-                            <span class="name">
-                                            静态页面制作
-                                        </span>
-                            <div class="description">
-                                完美实现设计稿
-                            </div>
+                            <span @click="addSkill">
+                                    添加
+                            </span>
+                            
                         </li>
                     </ul>
                 </section>
@@ -163,7 +149,7 @@
         <div v-show="signUpVisible" class="signUp" v-cloak>
                 <form class="form" @submit.prevent="onSignUp">  <!-- 阻止默认跳转  文档里叫做事件修饰符-->
                     <h2>注册</h2>
-                    <button type="button" @click="loginVisible = false">关闭</button>
+                    <button type="button" @click="signUpVisible = false">关闭</button>
                     <div class="row">
                         <label>邮箱</label>
                         <input type="text" v-model="signUp.email">    

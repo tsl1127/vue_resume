@@ -56,11 +56,11 @@ let app = new Vue({
             password:''
         },
         shareLink:'',
-        mode:'edit' //编辑模式或预览模式 preview
+        mode:'edit' //编辑模式（当前用户模式）或预览模式 preview
     },
     computed:{   
         displayResume(){
-           return  this.mode===preview ? this.previewResume : this.resume
+           return  this.mode==='preview' ? this.previewResume : this.resume
         }
     },
     watch:{     //监听变化
@@ -228,6 +228,7 @@ let matchs=search.match(regex)
 let userId
 if(matchs){
     userId=matchs[1]
+    app.mode='preview'
     console.log('preview id:'+userId)
     app.getResume({objectId:userId}).then(resume=>{
         app.previewResume=resume

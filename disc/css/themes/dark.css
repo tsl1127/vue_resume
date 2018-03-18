@@ -1,0 +1,99 @@
+
+body.dark{
+    background: #489AE7;
+}
+
+body.dark{
+        background: #489AE7;
+        color: white;
+    }
+    
+    body.dark .resume{
+        max-width: 800px;
+        margin: 0 auto;
+        border: 1px solid black;
+    }
+    
+    body.dark .resume > section{
+        margin:50px 0;
+    }
+    
+    body.dark .resume > section >h1{
+        text-align: center;
+        margin: 20px;
+    }
+    
+    body.dark .resume > section >h2{
+        text-align: center;
+        margin: 20px;
+    }
+    
+    /* .resume > section >p{
+        text-align: center;
+    } */
+    
+    body.dark .resume .profile {
+        text-align: center;
+    }
+    
+    body.dark .resume .skills >ul{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;           
+    }
+    body.dark .resume .skills>ul>li{
+        border: solid #ddd 1px ;
+        width:48%;
+        margin-top: 10px;
+        padding: 10px;
+        position: relative;
+    }
+    
+    body.dark .resume .skills>ul>li .remove{
+        position: absolute;
+        top:5px;
+        right: 5px;
+    }
+    
+    body.dark .resume .projects>ol>li{
+        position: relative;
+    }
+    
+    body.dark .resume .projects>ol>li .remove{
+        position: absolute;
+        bottom:5px;
+        right: 5px;
+    }
+    
+    body.dark .resume .projects{
+    
+    }
+    
+    body.dark .resume .projects header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    body.dark .resume .projects header .name {
+        margin-right: 1em;
+    }
+    
+    body.dark .resume .projects header .start{
+        display: flex;
+        border: solid red 1px;
+        /* align-content: center; */
+    } 
+    body.dark .resume .projects header .end{
+        border: 1px solid red;
+    }
+    
+    body.dark .resume .projects > ol{
+        
+    }
+    body.dark .resume .projects >ol>li{
+        margin:30px 0;
+        border:1px solid red;
+        padding: 10px;
+    }

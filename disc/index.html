@@ -9,8 +9,11 @@
  <link rel="stylesheet" href="./css/singUp.css">
  <link rel="stylesheet" href="./css/share.css">
  <link rel="stylesheet" href="./css/print.css" media="print">
+ <link rel="stylesheet" href="./css/skinPicker.css">
+ <link rel="stylesheet" href="./css/themes/default.css">
+ <link rel="stylesheet" href="./css/themes/dark.css">
 </head>
-<body>
+<body class="default">
     <div class="page" id="app">
         <aside v-show="mode!=='preview'">
             <div class="upper">
@@ -18,7 +21,7 @@
                     <li><button class="button" @click="onClickSave">保存</button> </li>
                     <li><button class="button" @click="shareVisible = true">分享</button> </li>
                     <li><button class="button" @click="print">打印</button> </li>
-                    <li><button class="button">换肤</button> </li>
+                    <li><button class="button" @click="skinPickerVisible=!skinPickerVisible">换肤</button> </li>
                     <!-- <li><button class="button" @click="mode='edit'" v-show="mode==='preview'">退出预览</button> </li>
                     <li><button class="button" @click="mode='preview'" v-show="mode==='edit'">进入预览</button> </li> -->
                 </ul>
@@ -27,7 +30,8 @@
                     <button class="button" @click="onLogout" v-show="hasLogin()">登出</button>
             </div>           
         </aside>
-        <main>
+        <!-- <main :class="mainClass"> -->
+                <main>
             <div class="resume">
                 <!-- {{resume}} -->
                 <section class="profile">                  
@@ -156,15 +160,14 @@
             </div>
         </div>
         <button class="exitPreview" @click="mode='edit'" v-if="mode==='preview'">退出预览</button>
+        <div v-show="skinPickerVisible" class="skinPicker">
+                <button @click="setTheme('default')">默认</button>
+                <button @click="setTheme('dark')">暗黑</button>
+        </div>
+        
     </div>
 
-<style>
-    .exitPreview{
-        position:fixed;
-        left: 20px;
-        top:20px;
-    }
-</style>
+
 
     <script src="./vendors/av-min.js"></script>
    <script>

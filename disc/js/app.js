@@ -5,6 +5,7 @@ let app = new Vue({
         loginVisible:false,
         signUpVisible:false,
         shareVisible:false,
+        skinPickerVisible:false,
         previewUser:{
             objectId:undefined,
         },
@@ -56,7 +57,8 @@ let app = new Vue({
             password:''
         },
         shareLink:'',
-        mode:'edit' //编辑模式（当前用户模式）或预览模式 preview
+        mode:'edit' ,//编辑模式（当前用户模式）或预览模式 preview
+        // mainClass:'default'
     },
     computed:{   
         displayResume(){
@@ -205,6 +207,10 @@ let app = new Vue({
         },
         print(){
             window.print()
+        },
+        setTheme(name){
+            // this.mainClass=name
+            document.body.className=name
         }
     },   
 })

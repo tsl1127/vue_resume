@@ -74,7 +74,7 @@ button{
 .button{
     padding: 3px 10px;
 }
-
+/* 
 .resume{
     max-width: 800px;
     margin: 0 auto;
@@ -93,12 +93,12 @@ button{
 .resume > section >h2{
     text-align: center;
     margin: 20px;
-}
+} */
 
 /* .resume > section >p{
     text-align: center;
 } */
-
+/* 
 .resume .profile {
     text-align: center;
 }
@@ -145,13 +145,13 @@ button{
 
 .resume .projects header .name {
     margin-right: 1em;
-}
+} */
 
-.resume .projects header .start{
+/* .resume .projects header .start{
     display: flex;
-    border: solid red 1px;
+    border: solid red 1px; */
     /* align-content: center; */
-} 
+/* } 
 .resume .projects header .end{
     border: 1px solid red;
 }
@@ -163,8 +163,23 @@ button{
     margin:30px 0;
     border:1px solid red;
     padding: 10px;
-}
+} */
 
 div[v-cloak]{
     display: none;
 }
+
+.exitPreview{
+    position:fixed;
+    left: 20px;
+    top:20px;
+}
+
+/* main.dark{
+    background: #489AE7;
+    color: white;
+}
+
+main.dark .resume{
+    
+} */

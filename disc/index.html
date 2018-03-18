@@ -8,6 +8,7 @@
  <link rel="stylesheet" href="./css/login.css">
  <link rel="stylesheet" href="./css/singUp.css">
  <link rel="stylesheet" href="./css/share.css">
+ <link rel="stylesheet" href="./css/print.css" media="print">
 </head>
 <body>
     <div class="page" id="app">
@@ -16,7 +17,7 @@
                 <ul class="actions">
                     <li><button class="button" @click="onClickSave">保存</button> </li>
                     <li><button class="button" @click="shareVisible = true">分享</button> </li>
-                    <li><button class="button">打印</button> </li>
+                    <li><button class="button" @click="print">打印</button> </li>
                     <li><button class="button">换肤</button> </li>
                     <!-- <li><button class="button" @click="mode='edit'" v-show="mode==='preview'">退出预览</button> </li>
                     <li><button class="button" @click="mode='preview'" v-show="mode==='edit'">进入预览</button> </li> -->
@@ -28,7 +29,6 @@
         </aside>
         <main>
             <div class="resume">
-                {{displayResume}}
                 <!-- {{resume}} -->
                 <section class="profile">                  
                     <!-- <h1 contenteditable="true">
@@ -66,7 +66,7 @@
                                             删除
                                     </span>
                         </li>
-                        <li v-if="mode==='edit'">
+                        <li v-if="mode==='edit'" class="add">
                             <span @click="addSkill">
                                     添加
                             </span>
@@ -100,9 +100,9 @@
                                 删除
                             </span>
                         </li>
-                        <li v-if="mode==='edit'">
+                        <li v-if="mode==='edit'" class="add">
                             <span @click="addProject">
-                                添加
+                                添加添加
                             </span>
                         </li>
                     </ol>

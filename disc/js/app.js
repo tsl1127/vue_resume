@@ -202,8 +202,11 @@ let app = new Vue({
         },
         removeProject(index){
             this.resume.projects.splice(index,1)
+        },
+        print(){
+            window.print()
         }
-    }
+    },   
 })
 
 
@@ -213,9 +216,9 @@ let currentUser = AV.User.current()
 if (currentUser) {
     app.currentUser = currentUser.toJSON()
     app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-    console.log('current id:'+app.currentUser.objectId)
+    // console.log('current id:'+app.currentUser.objectId)
     app.getResume(app.currentUser).then(resume=>{
-        console.log(this)
+        // console.log(this)
         app.resume=resume
     })            
 }
@@ -229,7 +232,7 @@ let userId
 if(matchs){
     userId=matchs[1]
     app.mode='preview'
-    console.log('preview id:'+userId)
+    // console.log('preview id:'+userId)
     app.getResume({objectId:userId}).then(resume=>{
         app.previewResume=resume
     })  

@@ -48,14 +48,8 @@ let app = new Vue({
                 {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'}
             ]
         },
-        signUp:{
-            email:'',
-            password:''
-        },
-        login:{
-            email:'',
-            password:''
-        },
+
+       
         shareLink:'',
         mode:'edit' ,//编辑模式（当前用户模式）或预览模式 preview
         // mainClass:'default'
@@ -69,30 +63,23 @@ let app = new Vue({
         'currentUser.objectId':function(newValue,oldValue){
             // console.log(newValue)
             if(newValue){
-                this.getResume(this.currentUser)
+                this.getResume(this.currentUser).then((resume)=>{this.resume=resume})
             }
         }
     },
     methods:{
-        onLogin(){   //登录
-            // console.log(this.login)           
-            AV.User.logIn(this.login.email, this.login.password).then( (user)=> {
-                // console.log(user);
-                user = user.toJSON()
-                this.currentUser = {     //登录进来之后，对currentUser赋值
-                    objectId:user.objectId,
-                    email:user.email,
-                }
-                this.loginVisible =false
-            },  (error)=> {
-                if(error.code===211){
-                    alert('邮箱不存在')
-                }else if(error.code===210){
-                    alert('邮箱和密码不匹配')
-                }
-                // console.log(error)
-                // console.log(error.code)
-            });
+        onShare(){
+            if(this.hasLogin()){
+                this.shareVisible=true;
+            }else{
+                alert('请先登录')
+            }
+        },
+        fonLogin(user){
+            this.currentUser.objectId=user.objectId
+            this.currentUser.email =user.email
+            // this.getResume(this.currentUser)
+            this.loginVisible=false
         },
         hasLogin(){
             return !!this.currentUser.objectId
@@ -104,28 +91,7 @@ let app = new Vue({
             // var currentUser = AV.User.current();
             window.location.reload()  //登出之后刷新页面
         },
-        onSignUp(){     //注册
-            // e.preventDefault()  //阻止表单自动跳转  或者直接在vue里写
-            // console.log(this.signUp)
-              // 新建 AVUser 对象实例
-            const user = new AV.User();
-            // 设置用户名
-            user.setUsername(this.signUp.email)
-            // 设置密码
-            user.setPassword(this.signUp.password)
-            // 设置邮箱
-            user.setEmail(this.signUp.email)
-            user.signUp().then( (user)=>{
-                // console.log(user);
-                alert('注册成功')
-                user = user.toJSON()
-                this.currentUser.objectId=user.objectId
-                this.currentUser.email=user.email
-                this.signUpVisible =false
-            }, (error)=> {
-                alert(error.rawMessage)
-            });
-        },
+
         onEdit(key,value){
             // this.resume.name = e.target.innerText
             // console.log(value)
@@ -208,10 +174,7 @@ let app = new Vue({
         print(){
             window.print()
         },
-        setTheme(name){
-            // this.mainClass=name
-            document.body.className=name
-        }
+
     },   
 })
 

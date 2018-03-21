@@ -1,73 +1,68 @@
-let app = new Vue({
-    el: '#app',
-    data: {
-        editingName:false,
-        loginVisible:false,
-        signUpVisible:false,
-        shareVisible:false,
-        skinPickerVisible:false,
-        previewUser:{
-            objectId:undefined,
-        },
-        previewResume:{
-
-        },
-        currentUser:{
-            objectId:'',
-            email:'',
-        },
-        resume :{
-            name:'姓名',
-            gender:'男',
-            birthday:'1986年12月',
-            jobTitle:'前端开发工程师',
-            email:'taosiliang1127tsl@163.com',
-            phone:'132xxxx4080',
-            skills:[
-            {
-                name:'请填写技能名称',
-                description:'请填写技能描述'
+window.App={
+    template:`
+      <div>
+          <app-aside v-show="mode!=='preview'" @save="onClickSave"></app-aside>
+      <!-- < main :class="mainClass" > -->
+      <main>
+          <resume :mode="mode" :display-resume="displayResume"></resume>
+    </main >
+      <button class="exitPreview" @click="mode='edit'" v-if="mode==='preview'" > 退出预览</button >  
+    </div >
+    ` ,
+    data(){
+        return {
+            editingName:false,
+            loginVisible:false,
+            signUpVisible:false,
+            shareVisible:false,
+            skinPickerVisible:false,
+            previewUser:{
+                objectId:undefined,
             },
-            {
-                name:'请填写技能名称',
-                description:'请填写技能描述'
+            previewResume:{
+    
             },
-            {
-                name:'请填写技能名称',
-                description:'请填写技能描述'
+            currentUser:{
+                objectId:'',
+                email:'',
             },
-            {
-                name:'请填写技能名称',
-                description:'请填写技能描述'
-            }
-            ],
-            projects:[
-                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
-                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
-                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
-                {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'}
-            ]
-        },
-
-       
-        shareLink:'',
-        mode:'edit' ,//编辑模式（当前用户模式）或预览模式 preview
-        // mainClass:'default'
-    },
-    computed:{   
-        displayResume(){
-        //    return  this.mode==='preview' ? this.previewResume : this.resume
-       let a= this.mode==='preview' ? this.previewResume : this.resume
-    //    console.log(a)
-       return a
-        }
-    },
-    watch:{     //监听变化
-        'currentUser.objectId':function(newValue,oldValue){
-            // console.log(newValue)
-            if(newValue){
-                this.getResume(this.currentUser).then((resume)=>{this.resume=resume})
-            }
+            resume :{
+                name:'姓名',
+                gender:'男',
+                birthday:'1986年12月',
+                jobTitle:'前端开发工程师',
+                email:'taosiliang1127tsl@163.com',
+                phone:'132xxxx4080',
+                skills:[
+                {
+                    name:'请填写技能名称',
+                    description:'请填写技能描述'
+                },
+                {
+                    name:'请填写技能名称',
+                    description:'请填写技能描述'
+                },
+                {
+                    name:'请填写技能名称',
+                    description:'请填写技能描述'
+                },
+                {
+                    name:'请填写技能名称',
+                    description:'请填写技能描述'
+                }
+                ],
+                projects:[
+                    {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                    {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                    {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'},
+                    {name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'}
+                ]
+            },
+    
+           
+            shareLink:'',
+            mode:'edit' ,//编辑模式（当前用户模式）或预览模式 preview
+            // mainClass:'default'
         }
     },
     methods:{
@@ -128,7 +123,8 @@ let app = new Vue({
             let currentUser = AV.User.current()
             // console.log(currentUser)
             if(!currentUser){
-                this.loginVisible=true            
+                // this.loginVisible=true    
+                this.$router.push('/login')        
             }else{
                 this.saveResume()
             }
@@ -167,41 +163,16 @@ let app = new Vue({
             window.print()
         },
 
-    },   
-})
+    },  
+    computed:{   
+        displayResume(){
+        //    return  this.mode==='preview' ? this.previewResume : this.resume
+       let a= this.mode==='preview' ? this.previewResume : this.resume
+    //    console.log(a)
+       return a
+        }
+    },
+  }
+  
 
-
-//获取当前用户
-let currentUser = AV.User.current()
-// console.log(currentUser)
-if (currentUser) {
-    app.currentUser = currentUser.toJSON()
-    app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-    // console.log('current id:'+app.currentUser.objectId)
-    app.getResume(app.currentUser).then(resume=>{
-        // console.log(this)
-        app.resume=resume
-    })            
-}
-
-//获取预览用户的Id
-let search = location.search
-// console.log(search)
-let regex =/user_id=([^&]+)/
-let matchs=search.match(regex)
-let userId
-if(matchs){
-    userId=matchs[1]
-    app.mode='preview'
-    // console.log('preview id:'+userId)
-    app.getResume({objectId:userId}).then(resume=>{
-        app.previewResume=resume
-    })  
-}
-
-
-
-
-
-
-
+Vue.component('app',App)

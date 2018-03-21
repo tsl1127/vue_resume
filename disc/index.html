@@ -14,13 +14,11 @@
  <link rel="stylesheet" href="./css/themes/dark.css">
 </head>
 <body class="default">
-    <div class="page" id="app">
-        <app-aside v-show="mode!=='preview'"  :logout-visible="true" @logout="onLogout" @save="onClickSave"></app-aside>
-        <!-- <main :class="mainClass"> -->
-                <main>
-            <resume :mode="mode" :display-resume="displayResume"></resume>
-        </main>
-        <login v-show="loginVisible" @close="loginVisible=false" @login="fonLogin"></login>
+    <div class="page" id="root">
+        <router-view></router-view>
+
+        
+        <!-- <login v-show="loginVisible" @close="loginVisible=false" @login="fonLogin"></login> -->
         <!-- <div v-show="loginVisible" class="login" v-cloak>
             <form class="form" @submit.prevent="onLogin">
                     <h2>登录</h2>
@@ -40,7 +38,7 @@
                     
             </form>            
         </div> -->
-        <sign-up v-show="signUpVisible"></sign-up>
+        <!-- <sign-up v-show="signUpVisible"></sign-up> -->
         <!-- <div v-show="signUpVisible" class="signUp" v-cloak>
                 <form class="form" @submit.prevent="onSignUp">  
                     <h2>注册</h2>
@@ -60,15 +58,14 @@
 
                 </form>
         </div> -->
-        <share v-bind:share-link="shareLink" v-show="shareVisible"></share>
+        <!-- <share v-bind:share-link="shareLink" v-show="shareVisible"></share> -->
         <!-- <div v-show="shareVisible" class="share" v-cloak>
             <h2>请将下面链接分享给面试官</h2>
             <div>
                 <textarea readonly>{{shareLink}}</textarea>           
             </div>
         </div> -->
-        <button class="exitPreview" @click="mode='edit'" v-if="mode==='preview'">退出预览</button>
-        <skin-picker v-show="skinPickerVisible"></skin-picker>
+        <!-- <skin-picker v-show="skinPickerVisible"></skin-picker> -->
         <!-- <div v-show="skinPickerVisible" class="skinPicker">
                 <button @click="setTheme('default')">默认</button>
                 <button @click="setTheme('dark')">暗黑</button>
@@ -90,6 +87,7 @@
    </script> 
    <script src="./js/av.js"></script>
    <script src="./vendors/vue.min.js"></script>
+   <script src="./vendors/vue-router.min.js"></script>
    <script src="./js/editable-span.js"></script>
    <script src="./js/login.js"></script>
    <script src="./js/signUp.js"></script>
@@ -97,9 +95,8 @@
    <script src="./js/skinPicker.js"></script>
    <script src="./js/resume.js"></script>
    <script src="./js/app-aside.js"></script>
-
-   <script src="./js/app.js"></script>  <!-- 组件要在app之前引入 -->
-   <!--  -->
-
+   <script src="./js/app.js"></script>
+   <script src="./js/root.js"></script>  <!-- 组件要在app之前引入 -->
+   
 </body>
 </html>

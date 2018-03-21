@@ -56,7 +56,10 @@ let app = new Vue({
     },
     computed:{   
         displayResume(){
-           return  this.mode==='preview' ? this.previewResume : this.resume
+        //    return  this.mode==='preview' ? this.previewResume : this.resume
+       let a= this.mode==='preview' ? this.previewResume : this.resume
+    //    console.log(a)
+       return a
         }
     },
     watch:{     //监听变化
@@ -159,18 +162,7 @@ let app = new Vue({
 
             })
         },
-        addSkill(){
-            this.resume.skills.push({name:'请填写技能名称',description:'请填写技能描述'})
-        },
-        removeSkill(index){
-            this.resume.skills.splice(index,1)  //从数组的第index个开始删除，只删除一个
-        },
-        addProject(){
-            this.resume.projects.push({name:'请填写项目名称',link:'请填写项目链接',keywords:'请填写关键词',description:'请填写项目描述'})
-        },
-        removeProject(index){
-            this.resume.projects.splice(index,1)
-        },
+
         print(){
             window.print()
         },
